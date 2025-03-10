@@ -58,7 +58,7 @@ def test_pruning(A,mode,block_size,q):
         param = BKZ.Param(block_size, strategies=BKZ.DEFAULT_STRATEGY,flags=flags,max_loops=2**10)
         
         filename='N='+str((A.nrows)/2)+'q='+str(q)+'_BEFORE.txt'
-        write_basis(A, filename)
+        # write_basis(A, filename)
         start_time = time.time()
         # A_bkz=BKZ2(A)
         A_bkz=BKZ.reduction(A, param)
@@ -67,7 +67,7 @@ def test_pruning(A,mode,block_size,q):
         print("using time is ",diff,"seconds")
         # print(A)
         filename='N='+str((A.nrows)/2)+'q='+str(q)+'_RESULT.txt'
-        write_basis(A, filename)
+        # write_basis(A, filename)
         # result1=A[1].norm() <= 2^q
         lenth=A[0].norm()
         result1=all(A[0][i]<2 for i in range (A.ncols))
