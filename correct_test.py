@@ -43,6 +43,10 @@ def test_pruning(A,mode,block_size,q):
         end_time = time.time()
         diff=end_time-start_time
         print("using time is ",diff,"seconds")
+        # lenth=A[0].norm()
+        result1=all(A[0][i]<2 for i in range (A.ncols))
+        print(A[0])
+        print(result1)
     if(mode==2):
         # 线性剪枝
         LP = linear_pruning_strategy(block_size, 6)
@@ -123,7 +127,7 @@ def shift_matrix2(n, m):
     
     return A
 # 示例：生成一个3行4列的矩阵
-def selectmode(latticeType,dimension,blksize,max):
+def selectmode(latticeType,type,dimension,blksize,max):
     FPLLL.set_random_seed(time.time())
     if(latticeType==1):
         A = IntegerMatrix.random(dimension, "ntrulike",q=max)
@@ -139,15 +143,17 @@ def selectmode(latticeType,dimension,blksize,max):
         A= shift_matrix2(dimension, dimension)
         print("维数为",dimension,",blocksize=",blksize,",格种类为:随机循环格")
     # print(A)
-    # print("不使用剪枝")  
-    # A1=copy.copy(A)
-    # A_bkz1=test_pruning(A1,1,blksize)
+    if(type==1):
+        print("不使用剪枝")  
+        A1=copy.copy(A)
+        A_bkz1,output,times=test_pruning(A1,1,blksize,max)
     # print("线性剪枝")
     # A2=copy.copy(A)
     # A_bkz2=test_pruning(A2,2,blksize)
-    print("极值剪枝") 
-    A3=copy.copy(A)
-    A_bkz3,output,times=test_pruning(A3,3,blksize,max)
+    if(type==3):
+        print("极值剪枝") 
+        A3=copy.copy(A)
+        A_bkz3,output,times=test_pruning(A3,3,blksize,max)
     # print(A_bkz3[0])
     # if(A_bkz1==A_bkz2==A_bkz3):
     #     print("same reduction result")
