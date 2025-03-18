@@ -17,11 +17,21 @@ blksize=20
 type=3
 for dimension in range(80, 130):  # 假设我们写入10行数据
     print("dimension:",dimension)
+    # if (selectmode(latticeType,dimension,blksize,q)):
+    #     _ = ws.cell(row=dimension, column=1, value=blksize)
+    #     _ = ws.cell(row=dimension, column=2, value=blksize)
+    # else:
+    #     blksize+=1
+    #     simension-=1
     corre,times=selectmode(latticeType,type,dimension,blksize,q)
-    _ = ws.cell(row=dimension+1, column=1, value=dimension)
-    _ = ws.cell(row=dimension+1, column=2, value=blksize)
-    _ = ws.cell(row=dimension+1, column=3, value=times)
-    wb.save(filename)
+    while not corre:
+        blksize+=1
+        corre,times=selectmode(latticeType,type,dimension,blksize,q)
+    else:
+        _ = ws.cell(row=dimension+1, column=1, value=dimension)
+        _ = ws.cell(row=dimension+1, column=2, value=blksize)
+        _ = ws.cell(row=dimension+1, column=3, value=times)
+        wb.save(filename)
 
 # 保存工作簿到文件
 wb.save(filename)
