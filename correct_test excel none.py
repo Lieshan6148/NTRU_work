@@ -15,7 +15,7 @@ dimension=100
 q=128
 blksize=20
 type=1
-for dimension in range(80, 130):  # 假设我们写入10行数据
+for dimension in range(89, 131):  # 假设我们写入10行数据
     print("dimension:",dimension)
     # if (selectmode(latticeType,dimension,blksize,q)):
     #     _ = ws.cell(row=dimension, column=1, value=blksize)
@@ -24,8 +24,9 @@ for dimension in range(80, 130):  # 假设我们写入10行数据
     #     blksize+=1
     #     simension-=1
     corre,times=selectmode(latticeType,type,dimension,blksize,q)
-    while not corre:
-        blksize+=1
+    while (not corre):
+        if(blksize<=100):
+            blksize+=1
         corre,times=selectmode(latticeType,type,dimension,blksize,q)
     else:
         _ = ws.cell(row=dimension+1, column=1, value=dimension)
