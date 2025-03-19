@@ -13,9 +13,9 @@ ws = wb[sheetname]  # 或者使用 ws = wb['Sheet1'] 来指定工作表
 latticeType=1
 dimension=100
 q=128
-blksize=58
+blksize=62
 type=3
-for dimension in range(98, 131):  # 假设我们写入10行数据
+for dimension in range(100, 131):  # 假设我们写入10行数据
     print("dimension:",dimension)
     # if (selectmode(latticeType,dimension,blksize,q)):
     #     _ = ws.cell(row=dimension, column=1, value=blksize)

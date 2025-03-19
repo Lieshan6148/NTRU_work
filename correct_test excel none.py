@@ -13,7 +13,7 @@ ws = wb[sheetname]  # 或者使用 ws = wb['Sheet1'] 来指定工作表
 latticeType=1
 dimension=100
 q=128
-blksize=20
+blksize=23
 type=1
 for dimension in range(89, 131):  # 假设我们写入10行数据
     print("dimension:",dimension)

@@ -1,4 +1,4 @@
-from fpylll import IntegerMatrix, BKZ, Pruning,FPLLL
+from fpylll import IntegerMatrix, BKZ, Pruning,FPLLL,LLL
 from fpylll.fplll.bkz_param import Strategy
 import time
 from fpylll.fplll.pruner import PruningParams
@@ -60,7 +60,7 @@ def test_pruning(A,mode,block_size,q):
         write_basis(A, filename)
         start_time = time.time()
         # A_bkz=BKZ2(A)
-        A_bkz=BKZ.reduction(A, param)
+        A_bkz=LLL.reduction(A)
         end_time = time.time()
         diff=end_time-start_time
         print("using time is ",diff,"seconds")
@@ -68,6 +68,12 @@ def test_pruning(A,mode,block_size,q):
         filename='N='+str((A.nrows)/2)+'q='+str(q)+'_RESULT.txt'
         write_basis(A, filename)
         print( A[1].norm() < 2^(A.nrows) )
+        result1=all(A[0][i]<2 for i in range (A.ncols))
+        # print( all(Bk[i].norm() < 2^24 for i in range(k)) )
+        # f,g=A[0]
+        # print(f,'\n',g)
+        print(A[0])
+        print(result1)
     # print("faster",time1-time3,"seconds than without pruning")
     # print(A_bkz2)
     return A_bkz
